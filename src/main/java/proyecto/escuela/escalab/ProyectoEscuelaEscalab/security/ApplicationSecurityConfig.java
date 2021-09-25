@@ -14,6 +14,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/", "index", "/css/*", "js/*")
+                .permitAll()//this anotation alows everybody to get in the login page
                 .anyRequest()
                 .authenticated()
                 .and()
