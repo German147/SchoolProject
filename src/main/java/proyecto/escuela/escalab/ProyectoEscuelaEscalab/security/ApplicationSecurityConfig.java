@@ -41,41 +41,45 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails lucasUser = User.builder()
                 .username("lucas")
                 .password(passwordEncoder.encode("password"))
-                .roles("STUDENT")//ROLE_STUDENT
+                .roles(AplicationUserRole.STUDENT.name())//ROLE_STUDENT
                 .build();
 
         UserDetails evangeUser = User.builder()
                 .username("evange")
                 .password(passwordEncoder.encode("password"))
-                .roles("TEACHER")//ROLE_TEACHER
+                .roles(AplicationUserRole.TEACHER.name())//ROLE_TEACHER
                 .build();
 
         UserDetails carlosUser = User.builder()
                 .username("carlos")
                 .password(passwordEncoder.encode("password"))
-                .roles("APODERADO")//ROLE_APODERADO
+                .roles(AplicationUserRole.TUTOR.name())//ROLE_TUTOR
                 .build();
 
         UserDetails claudiaUser = User.builder()
                 .username("claudia")
                 .password(passwordEncoder.encode("pasword"))
-                .roles("PRINCIPAL")//ROLE_STUDENT
+                .roles(AplicationUserRole.PRINCIPAL.name())//ROLE_PRINCIPAL
                 .build();
+
         UserDetails paolaUser = User.builder()
                 .username("paola")
                 .password(passwordEncoder.encode("pasword"))
-                .roles("SECRETARY")//ROLE_STUDENT
+                .roles(AplicationUserRole.SECRETARY.name())//ROLE_SECRETARY
                 .build();
-        UserDetails germanUser = User.builder()
-                .username("german")
-                .password(passwordEncoder.encode("pasword"))
-                .roles("ADMIN")//ROLE_STUDENT
-                .build();
+
         UserDetails maricelUser = User.builder()
                 .username("maricel")
                 .password(passwordEncoder.encode("pasword"))
-                .roles("PRECEPTOR")//ROLE_STUDENT
+                .roles(AplicationUserRole.PRECEPTOR.name())//ROLE_PRECEPTOR
                 .build();
+
+        UserDetails germanUser = User.builder()
+                .username("german")
+                .password(passwordEncoder.encode("pasword"))
+                .roles(AplicationUserRole.ADMIN.name())//ROLE_ADMIN
+                .build();
+
         return new InMemoryUserDetailsManager(
                 lucasUser,
                 evangeUser,
