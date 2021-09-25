@@ -12,7 +12,7 @@ import proyecto.escuela.escalab.ProyectoEscuelaEscalab.service.CursoService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/curso")
+@RequestMapping("api/v1/cursos")
 public class CursoController {
 
     @Autowired

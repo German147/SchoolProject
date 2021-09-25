@@ -8,7 +8,7 @@ import proyecto.escuela.escalab.ProyectoEscuelaEscalab.service.ContenidoService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/contenido")
+@RequestMapping("api/v1/contenidos")
 public class ContenidoController {
 
     @Autowired

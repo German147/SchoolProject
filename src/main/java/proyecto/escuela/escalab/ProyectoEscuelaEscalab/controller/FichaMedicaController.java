@@ -8,7 +8,7 @@ import proyecto.escuela.escalab.ProyectoEscuelaEscalab.service.FichaMedicaServic
 import java.util.List;
 
 @RestController
-@RequestMapping("/ficha_medica")
+@RequestMapping("api/v1/ficha_medica")
 public class FichaMedicaController {
 
     @Autowired

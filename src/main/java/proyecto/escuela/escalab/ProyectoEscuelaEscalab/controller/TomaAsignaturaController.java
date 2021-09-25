@@ -14,7 +14,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/toma_asignatura")
+@RequestMapping("api/v1/toma_asignaturas")
 public class TomaAsignaturaController {
 
     @Autowired

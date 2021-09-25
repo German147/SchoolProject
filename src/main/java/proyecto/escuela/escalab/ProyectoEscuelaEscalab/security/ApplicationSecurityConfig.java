@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static proyecto.escuela.escalab.ProyectoEscuelaEscalab.security.AplicationUserRole.*;
+
 @Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,8 +29,17 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "js/*")
-                .permitAll()//this anotation alows everybody to get in the login page
+                .antMatchers("/", "index", "/css/*", "js/*").permitAll()//this anotation alows everybody to get in the login page
+                .antMatchers("api/**").hasRole(ADMIN.name())
+                .antMatchers("api/v1/alumnos").hasAnyRole(ADMIN.name(), TUTOR.name(), PRECEPTOR.name(), TEACHER.name(), PRINCIPAL.name(), SECRETARY.name())
+                .antMatchers("/api/v1/apoderados").hasAnyRole(ADMIN.name(), PRECEPTOR.name(), SECRETARY.name(), PRINCIPAL.name())
+                .antMatchers("api/v1/asignaturas").hasAnyRole(ADMIN.name(), TEACHER.name(), PRECEPTOR.name())
+                .antMatchers("api/v1/contenidos").hasAnyRole(ADMIN.name(), TEACHER.name(), PRECEPTOR.name(), STUDENT.name())
+                .antMatchers("api/v1/cursos").hasAnyRole(ADMIN.name(), TEACHER.name(), PRECEPTOR.name())
+                .antMatchers("api/v1/ficha_medica").hasAnyRole(ADMIN.name(), PRECEPTOR.name(), SECRETARY.name())
+                .antMatchers("api/v1/profesores").hasAnyRole(ADMIN.name(), PRECEPTOR.name(), SECRETARY.name(), STUDENT.name())
+                .antMatchers("api/v1/registro_academico").hasAnyRole(ADMIN.name(), PRECEPTOR.name(), TUTOR.name())
+                .antMatchers("api/v1/toma_asignaturas").hasAnyRole(ADMIN.name(), TEACHER.name(), SECRETARY.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -53,7 +64,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails carlosUser = User.builder()
                 .username("carlos")
                 .password(passwordEncoder.encode("password"))
-                .roles(AplicationUserRole.TUTOR.name())//ROLE_TUTOR
+                .roles(TUTOR.name())//ROLE_TUTOR
                 .build();
 
         UserDetails claudiaUser = User.builder()
@@ -71,13 +82,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails maricelUser = User.builder()
                 .username("maricel")
                 .password(passwordEncoder.encode("pasword"))
-                .roles(AplicationUserRole.PRECEPTOR.name())//ROLE_PRECEPTOR
+                .roles(PRECEPTOR.name())//ROLE_PRECEPTOR
                 .build();
 
         UserDetails germanUser = User.builder()
                 .username("german")
                 .password(passwordEncoder.encode("pasword"))
-                .roles(AplicationUserRole.ADMIN.name())//ROLE_ADMIN
+                .roles(ADMIN.name())//ROLE_ADMIN
                 .build();
 
         return new InMemoryUserDetailsManager(
