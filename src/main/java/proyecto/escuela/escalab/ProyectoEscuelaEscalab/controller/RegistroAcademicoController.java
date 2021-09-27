@@ -1,6 +1,7 @@
 package proyecto.escuela.escalab.ProyectoEscuelaEscalab.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.dto.RegistroAcademicoDTO;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.entity.RegistroAcademico;
@@ -28,18 +29,21 @@ public class RegistroAcademicoController {
         }
 
         @PostMapping("/save")
+        @PreAuthorize("hasAuthority('registroacademico:write')")
         public @ResponseBody
         RegistroAcademico save(@RequestBody RegistroAcademico registroAcademico) {
             return registroAcademicoService.save(registroAcademico);
         }
 
         @PutMapping("/update/{id}")
+        @PreAuthorize("hasAuthority('registroacademico:write')")
         public @ResponseBody
         RegistroAcademico update(@PathVariable("id") Integer id, @RequestBody RegistroAcademico registroAcademico) {
             return registroAcademicoService.update(registroAcademico, id);
         }
 
         @DeleteMapping("/delete/{id}")
+        @PreAuthorize("hasAuthority('registroacademico:write')")
         public void deleteById(@PathVariable("id") Integer id) {
                 registroAcademicoService.deleteById(id);
         }

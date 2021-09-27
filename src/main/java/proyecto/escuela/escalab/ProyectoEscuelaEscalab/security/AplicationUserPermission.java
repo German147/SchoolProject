@@ -1,19 +1,13 @@
 package proyecto.escuela.escalab.ProyectoEscuelaEscalab.security;
 
 public enum AplicationUserPermission {
-//in this class we create the permission to be set into the each role respectivily..
-    STUDENT_READ("student:read"),
-    STUDENT_WRITE("student:write"),
-    TEACHER_READ("teacher:read"),
-    TEACHER_WRITE("teacher:write"),
-    TUTOR_READ("tutor:read"),
-    TUTOR_WRITE("tutor:write"),
-    PRINCIPAL_READ("principal:read"),
-    PRINCIPAL_WRITE("principal:write"),
-    SECRETARY_READ("secretary:read"),
-    SECRETARY_WRITE("secretary:write"),
-    PRECEPTOR_READ("preceptor:read"),
-    PRECEPTOR_WRITE("preceptor:write"),
+    //in this class we create the permission to be set into the each role respectivily..
+    ALUMNO_READ("alumno:read"),
+    ALUMNO_WRITE("alumno:write"),
+    PROFESOR_READ("profesor:read"),
+    PROFESOR_WRITE("profesor:write"),
+    APODERADO_READ("apoderado:read"),
+    APODERADO_WRITE("apoderado:write"),
     ADMIN_READ("admin:read"),
     ADMIN_WRITE("admin:write"),
     ASIGNATURA_READ("asignatura:read"),

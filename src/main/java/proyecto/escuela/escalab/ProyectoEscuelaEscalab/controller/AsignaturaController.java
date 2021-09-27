@@ -1,6 +1,7 @@
 package proyecto.escuela.escalab.ProyectoEscuelaEscalab.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.entity.Asignatura;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.service.AsignaturaService;
@@ -42,18 +43,21 @@ public class AsignaturaController {
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('asignatura:write')")
     public @ResponseBody
     Asignatura save(@RequestBody Asignatura asignatura) {
         return asignaturaService.save(asignatura);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAuthority('asignatura:write')")
     public @ResponseBody
     Asignatura update(@PathVariable("id") Integer id, @RequestBody Asignatura asignatura) {
         return asignaturaService.update(asignatura, id);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('asignatura:write')")
     public void deleteById(@PathVariable("id") Integer id) {
         asignaturaService.deleteById(id);
     }
