@@ -38,7 +38,7 @@ public class AlumnoController {
     }
 
     @ApiOperation(value = "Obtener un Alumno por su Id",
-            notes = "No necesita parámetros de entrada",
+            notes = "Si requiere parámetros de entrada, su id",
             response = List.class,
             responseContainer = "Alumno")
     @ApiResponses(value = {
@@ -52,7 +52,7 @@ public class AlumnoController {
     }
 
     @ApiOperation(value = "Gardar un alumno nuevo",
-            notes = "Si requiere necesita parámetros de entrada",
+            notes = "Si requiere parámetros de entrada",
             response = List.class,
             responseContainer = "Alumno")
     @ApiResponses(value = {
@@ -65,8 +65,8 @@ public class AlumnoController {
         return alumnoService.save(alumno);
     }
 
-    @ApiOperation(value = "Editar un alumno nuevo",
-            notes = "Si requiere necesita parámetros de entrada",
+    @ApiOperation(value = "Editar un alumno ya existente",
+            notes = "Si requiere necesita parámetros de entrada, su id",
             response = List.class,
             responseContainer = "Alumno")
     @ApiResponses(value = {
@@ -80,7 +80,7 @@ public class AlumnoController {
     }
 
     @ApiOperation(value = "Eliminar un Alumno por su Id",
-            notes = "No necesita parámetros de entrada",
+            notes = "Si requiere necesita parámetros de entrada, su id",
             response = List.class,
             responseContainer = "Alumno")
     @ApiResponses(value = {
