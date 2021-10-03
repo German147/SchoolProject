@@ -10,14 +10,6 @@ import java.util.Set;
 //We create this class to build the USERS using the characteristicas of UserDetails...
 public class ApplicationUser implements UserDetails {
 
-    private String username;
-    private String password;
-    private Set<? extends GrantedAuthority> grantedAuthorities;
-    private boolean isAccountNonExpired;
-    private boolean isAccountNonLocked;
-    private boolean isCredentialsNonExpired;
-    private boolean isEnabled;
-
     public ApplicationUser(String username,
                            String password,
                            Set<? extends GrantedAuthority> grantedAuthorities,
@@ -25,17 +17,22 @@ public class ApplicationUser implements UserDetails {
                            boolean isAccountNonLocked,
                            boolean isCredentialsNonExpired,
                            boolean isEnabled) {
-        this.grantedAuthorities = grantedAuthorities;
         this.username = username;
         this.password = password;
+        this.grantedAuthorities = grantedAuthorities;
         this.isAccountNonExpired = isAccountNonExpired;
         this.isAccountNonLocked = isAccountNonLocked;
         this.isCredentialsNonExpired = isCredentialsNonExpired;
         this.isEnabled = isEnabled;
     }
 
-
-
+    private final String username;
+    private final String password;
+    private final Set<? extends GrantedAuthority> grantedAuthorities;
+    private final boolean isAccountNonExpired;
+    private final boolean isAccountNonLocked;
+    private final boolean isCredentialsNonExpired;
+    private final boolean isEnabled;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

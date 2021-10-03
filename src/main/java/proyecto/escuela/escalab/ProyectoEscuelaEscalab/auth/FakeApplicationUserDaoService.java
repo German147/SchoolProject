@@ -13,9 +13,9 @@ import static proyecto.escuela.escalab.ProyectoEscuelaEscalab.security.Aplicatio
 @Repository("fake")
 public class FakeApplicationUserDaoService implements AplicationUserDAO {
 
-    @Autowired
-    private final PasswordEncoder passwordEncoder;
 
+    private final PasswordEncoder passwordEncoder;
+    @Autowired
     public FakeApplicationUserDaoService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }

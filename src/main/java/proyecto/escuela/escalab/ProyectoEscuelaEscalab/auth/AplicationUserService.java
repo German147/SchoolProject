@@ -1,5 +1,6 @@
 package proyecto.escuela.escalab.ProyectoEscuelaEscalab.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class AplicationUserService implements UserDetailsService {
 
     private final AplicationUserDAO aplicationUserDAO;
-
+    @Autowired
     public AplicationUserService(AplicationUserDAO aplicationUserDAO) {
         this.aplicationUserDAO = aplicationUserDAO;
     }
@@ -17,7 +18,7 @@ public class AplicationUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return aplicationUserDAO.selectAplicationUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(String
-                        .format("UserName " + username + "is not Found")));
+                .orElseThrow(()->new UsernameNotFoundException(String.format("UserName " + username + "is not Found")));
     }
+
 }
