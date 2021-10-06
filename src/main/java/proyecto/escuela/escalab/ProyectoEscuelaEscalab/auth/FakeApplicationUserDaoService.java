@@ -14,10 +14,11 @@ import static proyecto.escuela.escalab.ProyectoEscuelaEscalab.security.Aplicatio
 public class FakeApplicationUserDaoService implements ApplicationUserDAO {
 
     @Autowired
-    private final PasswordEncoder passwordEncoder;
     public FakeApplicationUserDaoService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
+    private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public Optional<ApplicationUser> selectApplicationUserByUsername(String username) {
@@ -31,7 +32,7 @@ public class FakeApplicationUserDaoService implements ApplicationUserDAO {
         List<ApplicationUser> applicationUsers = Lists.newArrayList(
                 new ApplicationUser(
                         "lucas",
-                        "password",
+                        passwordEncoder.encode("password"),
                         ALUMNO.getGrantedAuthority(),
                         true,
                         true,
@@ -39,7 +40,7 @@ public class FakeApplicationUserDaoService implements ApplicationUserDAO {
                         true),
                 new ApplicationUser(
                         "evange",
-                        "password",
+                        passwordEncoder.encode("password"),
                         PROFESOR.getGrantedAuthority(),
                         true,
                         true,
@@ -47,7 +48,7 @@ public class FakeApplicationUserDaoService implements ApplicationUserDAO {
                         true),
                 new ApplicationUser(
                         "carlos",
-                        "password",
+                        passwordEncoder.encode("password"),
                         APODERADO.getGrantedAuthority(),
                         true,
                         true,
@@ -55,7 +56,7 @@ public class FakeApplicationUserDaoService implements ApplicationUserDAO {
                         true),
                 new ApplicationUser(
                         "claudia",
-                        "password",
+                        passwordEncoder.encode("password"),
                         DIRECTOR.getGrantedAuthority(),
                         true,
                         true,
