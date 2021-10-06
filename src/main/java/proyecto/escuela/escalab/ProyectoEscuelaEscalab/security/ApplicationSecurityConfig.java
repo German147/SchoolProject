@@ -10,11 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.auth.ApplicationUserService;
 
@@ -30,9 +26,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserService applicationUserService;
-
-    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder, ApplicationUserService applicationUserService) {
-        this.passwordEncoder = passwordEncoder;
+    @Autowired
+    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
+                                     PasswordEncoder passwordEncoder1, ApplicationUserService applicationUserService) {
+        this.passwordEncoder = passwordEncoder1;
         this.applicationUserService = applicationUserService;
     }
 
