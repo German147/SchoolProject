@@ -10,11 +10,14 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.auth.ApplicationUserService;
+import proyecto.escuela.escalab.ProyectoEscuelaEscalab.jwt.JwtConfig;
+import proyecto.escuela.escalab.ProyectoEscuelaEscalab.jwt.JwtTokenVerifier;
+import proyecto.escuela.escalab.ProyectoEscuelaEscalab.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 
-import java.util.concurrent.TimeUnit;
+import javax.crypto.SecretKey;
 
 import static proyecto.escuela.escalab.ProyectoEscuelaEscalab.security.AplicationUserRole.*;
 
@@ -23,14 +26,20 @@ import static proyecto.escuela.escalab.ProyectoEscuelaEscalab.security.Aplicatio
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserService applicationUserService;
+    private final SecretKey secretKey;
+    private final JwtConfig jwtConfig;
+
     @Autowired
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
-                                     PasswordEncoder passwordEncoder1, ApplicationUserService applicationUserService) {
+                                     PasswordEncoder passwordEncoder1,
+                                     ApplicationUserService applicationUserService,
+                                     SecretKey secretKey, JwtConfig jwtConfig) {
         this.passwordEncoder = passwordEncoder1;
         this.applicationUserService = applicationUserService;
+        this.secretKey = secretKey;
+        this.jwtConfig = jwtConfig;
     }
 
     @Override
@@ -38,6 +47,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                 .csrf().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
+                .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "js/*").permitAll()//this anotation alows everybody to get in the login page
                 // .antMatchers("/api/**").hasRole(ADMIN.name())
@@ -52,27 +66,27 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/registro_academico").hasAnyRole(ADMIN.name(), PRECEPTOR.name(), APODERADO.name(), SECRETARIA.name())
                 .antMatchers(HttpMethod.GET, "/api/v1/toma_asignaturas").hasAnyRole(ADMIN.name(), PROFESOR.name(), SECRETARIA.name())
                 .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/school", true)
-                .passwordParameter("password")//this anotation has to be the same as the login form parameter
-                .usernameParameter("username")//this anotation has to be the same as the login form parameter
-                .and()
-                .rememberMe()
-                .rememberMeParameter("remember-me")
-                .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))//it by default for 2 weeks
-                .key("strongpasswordmustbeset")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                //we use GET to loogout when we have desable CSRF,but if not it must be a POST
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("remember-me", "JSESSIONID")
-                .logoutSuccessUrl("/login");
+                .authenticated();
+//                .and()
+//                .formLogin()
+//                .loginPage("/login").permitAll()
+//                .defaultSuccessUrl("/school", true)
+//                .passwordParameter("password")//this anotation has to be the same as the login form parameter
+//                .usernameParameter("username")//this anotation has to be the same as the login form parameter
+//                .and()
+//                .rememberMe()
+//                .rememberMeParameter("remember-me")
+//                .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))//it by default for 2 weeks
+//                .key("strongpasswordmustbeset")
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                //we use GET to loogout when we have desable CSRF,but if not it must be a POST
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+//                .clearAuthentication(true)
+//                .invalidateHttpSession(true)
+//                .deleteCookies("remember-me", "JSESSIONID")
+//                .logoutSuccessUrl("/login");
     }
 
 

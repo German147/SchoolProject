@@ -61,7 +61,15 @@ public class FakeApplicationUserDaoService implements ApplicationUserDAO {
                         true,
                         true,
                         true,
-                        true)
+                        true),
+        new ApplicationUser(
+                "german",
+                passwordEncoder.encode("password"),
+                ADMIN.getGrantedAuthority(),
+                true,
+                true,
+                true,
+                true)
         );
         return applicationUsers;
     }
