@@ -16,13 +16,13 @@ import java.util.ArrayList;
 public class SwaggerConfiguration {
 
     public static final Contact DEFAULT_CONTACT = new Contact(
-            "Escalab",
+            "SchooProject",
             "https://www.laescala.cl ",
             "mchamorro@laescala.cl");
 
     public static final ApiInfo DEFAULT_API_INFO = new ApiInfo(
             "Proyecto Escuela",
-            "Proyecto final Spring Boot para Escalab Academy",
+            "Proyecto para sumar al protafoleo de GIT",
             "1.0",
             "PREMIUM", DEFAULT_CONTACT,
             "Apache 2.0",

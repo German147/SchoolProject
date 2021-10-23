@@ -1,5 +1,8 @@
 package proyecto.escuela.escalab.ProyectoEscuelaEscalab.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -7,6 +10,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "ficha_medica")
+@ApiModel(description = "Información o propiedes de la entidad fichaMedica")
 public class FichaMedica {
 
     @Id
@@ -15,38 +19,47 @@ public class FichaMedica {
     private Integer id;
 
     @Column(name = "fecha")
+    @ApiModelProperty(notes = "Se debe ingresar la fecha del momento cuando se realizo la el exmanen medico")
     @NotNull
     private LocalDate fecha;
 
     @Column(name = "edad")
+    @ApiModelProperty(notes = "Se debe ingresar la edad en numeros enteros")
     @NotNull
     private Integer edad;
 
     @Column(name = "peso")
+    @ApiModelProperty(notes = "Se debe ingresar el peso utilizando punto para los decimales")
     @NotNull
     private Double peso;
 
     @Column(name = "estatura")
+    @ApiModelProperty(notes = "Se debe ingresar la estaturautilizando punto para los decimales")
     @NotNull
     private Double estatura;
 
     @Column(name = "diabetico")
+    @ApiModelProperty(notes = "Se debe ingresar si o no")
     @NotNull
     private Boolean diabetico;
 
     @Column(name = "problemasCorazon")
+    @ApiModelProperty(notes = "Se debe ingresar si o no")
     @NotNull
     private Boolean problemasCorazon;
 
     @Column(name = "alergias")
+    @ApiModelProperty(notes = "Se debe ingresar si o no")
     @NotNull
     private Boolean alergias;
 
     @Column(name = "discapacidad")
+    @ApiModelProperty(notes = "Se debe ingresar una descripcion de la discapadidad si la tuviere, de lo contrario escribir no posee discapacidad")
     @NotEmpty
     private String discapacidad;
 
     @Column(name = "imagen")
+    @ApiModelProperty(notes = "Se debe ingresar una imagen actualizada del alumno")
     @NotEmpty
     private String imagen;
 
