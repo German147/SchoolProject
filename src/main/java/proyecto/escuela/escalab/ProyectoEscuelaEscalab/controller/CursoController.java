@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.entity.Curso;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.response.ExceptionResponse;
@@ -12,7 +13,7 @@ import proyecto.escuela.escalab.ProyectoEscuelaEscalab.service.CursoService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/curso")
+@RequestMapping("api/v1/cursos")
 public class CursoController {
 
     @Autowired
@@ -63,18 +64,21 @@ public class CursoController {
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('curso:write')")
     public @ResponseBody
     Curso save(@RequestBody Curso curso) {
         return cursoService.save(curso);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAuthority('curso:write')")
     public @ResponseBody
     Curso update(@PathVariable("id") Integer id, @RequestBody Curso curso) {
         return cursoService.update(curso, id);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('curso:write')")
     public void deleteById(@PathVariable("id") Integer id) {
         cursoService.deleteById(id);
     }

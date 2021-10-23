@@ -2,6 +2,7 @@ package proyecto.escuela.escalab.ProyectoEscuelaEscalab.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.dto.TomaAsignaturaDTO;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.entity.TomaAsignatura;
@@ -14,7 +15,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/toma_asignatura")
+@RequestMapping("api/v1/toma_asignaturas")
 public class TomaAsignaturaController {
 
     @Autowired
@@ -33,18 +34,21 @@ public class TomaAsignaturaController {
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('tomaasignatura:write')")
     public @ResponseBody
     TomaAsignatura save(@RequestBody TomaAsignatura tomaAsignatura) {
         return tomaAsignaturaService.save(tomaAsignatura);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAuthority('tomaasignatura:write')")
     public @ResponseBody
     TomaAsignatura update(@PathVariable("id") Integer id, @RequestBody TomaAsignatura tomaAsignatura) {
         return tomaAsignaturaService.update(tomaAsignatura, id);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('tomaasignatura:write')")
     public void deleteById(@PathVariable("id") Integer id) {
         tomaAsignaturaService.deleteById(id);
     }

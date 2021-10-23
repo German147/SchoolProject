@@ -1,6 +1,7 @@
 package proyecto.escuela.escalab.ProyectoEscuelaEscalab.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.entity.Alumno;
 import proyecto.escuela.escalab.ProyectoEscuelaEscalab.service.AlumnoService;
@@ -8,12 +9,15 @@ import proyecto.escuela.escalab.ProyectoEscuelaEscalab.service.AlumnoService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/alumno")
+@RequestMapping("api/v1/alumnos")
 public class AlumnoController {
 
     @Autowired
     private AlumnoService alumnoService;
 
+    //we can use the following anotations to stablish the ROLES and AUTHORITIES in each service:
+//hasRole('ROLE_...') or hasAnyRole('ROLE_...','ROLE_...') or hasAuthority('...:write') or
+// hasAnyAuthority('...:READ','...:WRITE')
     @GetMapping
     public @ResponseBody
     List<Alumno> findAll() {
@@ -27,18 +31,21 @@ public class AlumnoController {
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('alumno:write')")
     public @ResponseBody
     Alumno save(@RequestBody Alumno alumno) {
         return alumnoService.save(alumno);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAuthority('alumno:write')")
     public @ResponseBody
     Alumno update(@PathVariable("id") Integer id, @RequestBody Alumno alumno) {
         return alumnoService.update(alumno, id);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('alumno:write')")
     public void deleteById(@PathVariable("id") Integer id) {
         alumnoService.deleteById(id);
     }
