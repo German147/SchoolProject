@@ -55,6 +55,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "js/*").permitAll()//this anotation alows everybody to get in the login page
                 // .antMatchers("/api/**").hasRole(ADMIN.name())
+                .antMatchers("/swagger-ui.html/**").permitAll()
                 //here it is set the ROLE to the the endpoint, and in each Controller it is Configuresd the @PreAuthorize() anotation...
                 .antMatchers(HttpMethod.GET, "/api/v1/alumnos").hasAnyRole(ADMIN.name(), PROFESOR.name(), PRECEPTOR.name())
                 .antMatchers(HttpMethod.GET, "/api/v1/apoderados").hasAnyRole(ADMIN.name(), PRECEPTOR.name(), SECRETARIA.name())
