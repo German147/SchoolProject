@@ -1,7 +1,7 @@
 
 
 # SchoolProject
-###### Web application created with SpringBoot, and Postgresql relational database.
+##### Web application created with SpringBoot, and Postgresql relational database.
 <br/>
 
 ### Table of contents
